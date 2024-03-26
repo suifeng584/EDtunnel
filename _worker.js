@@ -70,6 +70,12 @@ export default {
 							}
 						});
 					};
+					case `/bestip/${userID_Path}`: {
+						const headers = request.headers;
+						const url = `https://sub.xf.free.hr/auto?host=${request.headers.get('Host')}&uuid=${userID}&path=/`;
+						const bestSubConfig = await fetch(url, { headers: headers });
+						return bestSubConfig;
+					};
 					default:
 						// return new Response('Not found', { status: 404 });
 						// For any other path, reverse proxy to 'ramdom website' and return the original response, caching it in the process
@@ -712,7 +718,7 @@ ${vlessSec}
 ---------------------------------------------------------------`;
 	}).join('\n');
 	const sublink = `https://${hostName}/sub/${userIDArray[0]}?format=clash`
-	const subbestip = `https://sub.xf.free.hr/auto?host=${hostName}&uuid=${userIDArray[0]}`;
+	const subbestip = `https://${hostName}/bestip/${userIDArray[0]}`;
 	const clash_link = `https://api.v1.mk/sub?target=clash&url=${encodeURIComponent(sublink)}&insert=false&emoji=true&list=false&tfo=false&scv=true&fdn=false&sort=false&new_name=true`;
 	// Prepare header string
 	const header = `
